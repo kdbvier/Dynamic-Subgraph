@@ -1,0 +1,22 @@
+{
+  "name": "test-ignite",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ kdbvier/new-ignite",
+    "create-local": "graph create --node http://localhost:8020/ kdbvier/test-ignite",
+    "remove-local": "graph remove --node http://localhost:8020/ kdbvier/test-ignite",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 kdbvier/test-ignite",
+    "test": "graph test",
+    "auth": "graph auth --studio 39e14bff99891a0d21fa8ba47d23ed02",
+    "deploy:mainnet": "graph deploy --studio igniteeth"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.53.0",
+    "@graphprotocol/graph-ts": "0.30.0"
+  },
+  "devDependencies": {
+    "matchstick-as": "0.5.0"
+  }
+}

@@ -1,0 +1,79 @@
+type PairHourData @entity {
+  id: ID!
+  startUnix: Int!
+  open: BigInt!
+  close: BigInt!
+  high: BigInt!
+  low: BigInt!
+  volume: BigInt!
+  trades: Int!
+  erc20: String!
+}
+
+type PairDayData @entity {
+  id: ID!
+  startUnix: Int!
+  open: BigInt!
+  close: BigInt!
+  high: BigInt!
+  low: BigInt!
+  volume: BigInt!
+  trades: Int!
+  erc20: String!
+}
+
+type PairMinsData @entity {
+  id: ID!
+  startUnix: Int!
+  open: BigInt!
+  close: BigInt!
+  high: BigInt!
+  low: BigInt!
+  volume: BigInt!
+  trades: Int!
+  erc20: String!
+}
+
+type Swap @entity {
+  id: ID!
+  sender: String!
+  transaction: String!
+  amount0In: BigInt!
+  amount1In: BigInt!
+  amount0Out: BigInt!
+  amount1Out: BigInt!
+  amountEth: BigInt!
+  timestamp: BigInt!
+  erc20: String!
+}
+
+type ERC20 @entity {
+  id: ID!
+  address: String!
+  name: String!
+  symbol: String!
+  decimals: Int!
+}
+type Pool @entity {
+  id: ID!
+  token0: String!
+  token1: String!
+  reserve0: BigInt!
+  reserve1: BigInt!
+}
+type UniEvent @entity {
+  id: ID!
+  timestamp: BigInt!
+  amount0In: BigInt!
+  amount1In: BigInt!
+  amount0Out: BigInt!
+  amount1Out: BigInt!
+  reserve0: BigInt!
+  reserve1: BigInt!
+}
+
+type TestEvent @entity {
+  id: ID!
+  pair: String!
+  token: String!
+}

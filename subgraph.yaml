@@ -1,0 +1,123 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: IgniteFactory
+    network: mainnet
+    source:
+      address: "0x332cAEF8e6eBb43D1421E8Aa2E938b2D44246772"
+      abi: igniteFactory
+      startBlock: 17955364
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AddedLiquidity
+        - CreatedNewPool
+        - MigratedManually
+        - MigratedToUniswap
+        - OwnershipTransferred
+        - PurchasedTokens
+        - SetLaunchTime
+        - SoldTokens
+      abis:
+        - name: igniteFactory
+          file: ./abis/igniteFactory.json
+      eventHandlers:
+        - event: AddedLiquidity(indexed address,uint256,uint256)
+          handler: handleAddedLiquidity
+        - event: CreatedNewPool(address,string,string,uint256)
+          handler: handleCreatedNewPool
+        - event: MigratedManually(address,uint256,uint256)
+          handler: handleMigratedManually
+        - event: MigratedToUniswap(address,address,uint256,uint256)
+          handler: handleMigratedToUniswap
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: PurchasedTokens(indexed address,indexed address,uint256,uint256,uint256,uint256)
+          handler: handlePurchasedTokens
+        - event: SetLaunchTime(address,uint256)
+          handler: handleSetLaunchTime
+        - event: SoldTokens(indexed address,indexed address,uint256,uint256,uint256,uint256)
+          handler: handleSoldTokens
+      file: ./src/contract.ts
+  - kind: ethereum
+    name: OldIgniteFactory
+    network: mainnet
+    source:
+      address: "0x46f42bCd361D1c046823B25D4A839152093185CF"
+      abi: oldIgniteFactory
+      startBlock: 17955364
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AddedLiquidity
+        - MigratedManually
+        - MigratedToUniswap
+        - OwnershipTransferred
+        - Paused
+        - PurchasedTokens
+        - SetLaunchTime
+        - SetNewToken
+        - SoldTokens
+        - Unpaused
+      abis:
+        - name: oldIgniteFactory
+          file: ./abis/oldIgniteFactory.json
+      eventHandlers:
+        - event: AddedLiquidity(uint256,uint256)
+          handler: handleAddedLiquidity
+        - event: MigratedManually(uint256,uint256)
+          handler: handleMigratedManually
+        - event: MigratedToUniswap(uint256,uint256)
+          handler: handleMigratedToUniswap
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Paused(address)
+          handler: handlePaused
+        - event: PurchasedTokens(indexed address,uint256,uint256,uint256,uint256)
+          handler: handlePurchasedTokens
+        - event: SetLaunchTime(uint256)
+          handler: handleSetLaunchTime
+        - event: SetNewToken(address)
+          handler: handleSetNewToken
+        - event: SoldTokens(indexed address,uint256,uint256,uint256,uint256)
+          handler: handleSoldTokens
+        - event: Unpaused(address)
+          handler: handleUnpaused
+      file: ./src/oldcontract.ts
+templates:
+  - kind: ethereum/contract
+    name: UniPool
+    network: mainnet
+    source:
+      abi: uniPool
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/contract.ts
+      entities:
+        - Burn
+        - Mint
+        - Swap
+        - Sync
+        - Transfer
+      abis:
+        - name: uniPool
+          file: ./abis/uniPool.json
+      eventHandlers:
+        - event: Mint(indexed address,uint256,uint256)
+          handler: handleMint
+        - event: Burn(indexed address,uint256,uint256,indexed address)
+          handler: handleBurn
+        - event: Swap(indexed address,uint256,uint256,uint256,uint256,indexed address)
+          handler: handleSwap
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Sync(uint112,uint112)
+          handler: handleSync
